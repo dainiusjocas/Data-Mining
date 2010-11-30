@@ -2,8 +2,7 @@
 # and open the template in the editor.
 
 puts "Sveikas pasauli!"
-a="labas "
-b="pasauli "
-c="darkart"
 
-puts "dabar bus stebuklas... #{a+b+c}"
+(0..10).each do
+  puts "moo"
+end
