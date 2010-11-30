@@ -3,6 +3,8 @@
 
 puts "Sveikas pasauli!"
 
-(0..10).each do
-  puts "moo"
-end
+# Dainiau, nesamoninga karves funkcija....
+#
+#(0..10).each do
+#  puts "moo"
+#end
