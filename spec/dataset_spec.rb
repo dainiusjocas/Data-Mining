@@ -1,7 +1,8 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
-require 'dataset'
+
+load 'dataset.rb'
 
 describe Dataset do
   before(:each) do
@@ -9,6 +10,7 @@ describe Dataset do
   end
 
   it "size of dataset should be equal to 2" do
+    @dataset.build_dataset('../test/auto_mpg.txt')
     @dataset.get_size.should == 2
   end
 end

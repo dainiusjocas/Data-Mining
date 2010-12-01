@@ -4,3 +4,4 @@ require 'dataset'
 
 dataset = Dataset.new
 dataset.build_dataset "../test/auto_mpg.txt"
+
