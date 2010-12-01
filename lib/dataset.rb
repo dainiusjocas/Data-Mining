@@ -30,10 +30,10 @@ class Dataset
        unless line.empty?
          if 1 >= i
            if 0 == i
-             @attr_names.push(line.split(","))
+             @att_names.push(line.split(","))
              i += 1
            else
-             @attr_types.push(line.split(","))
+             @att_types.push(line.split(","))
              i += 1
            end
          @dataset.push(line.split(","))
@@ -59,6 +59,6 @@ class Dataset
   def get_attribute tuple, attribute
     puts @att_names[attribute]
     puts @att_types[attribute]
-    puts @dataset[tuple][attribute]
+   # puts @dataset[tuple][attribute]
   end
 end
