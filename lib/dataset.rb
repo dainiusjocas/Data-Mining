@@ -4,15 +4,14 @@
 #datafile must be a comma separated values file
 
 class Dataset
-  attr_accessor :dataset, :n, :m, :att_names, :att_types
+  attr_accessor :dataset, :att_names, :att_types
 
   #constructor of the class, initializing the class variables
   def initialize
     @dataset = Array.new
     @att_names = Array.new
     @att_types = Array.new
-    @n = 0
-    @m = 0
+    
   end
 
   #Method for building a dataset from the given file
@@ -25,16 +24,25 @@ class Dataset
   def build_dataset path
     file = File.new(path, "r")
 
-    
+    i=0
     while (line = file.gets)
        line = line.strip
        unless line.empty?
-        @dataset.push(line.split(","))
+         if 1 >= i
+           if 0 == i
+             @attr_names.push(line.split(","))
+             i += 1
+           else
+             @attr_types.push(line.split(","))
+             i += 1
+           end
+         @dataset.push(line.split(","))
+         end
        end
     end
 
-    @att_names = @dataset[0] #creates an array of attribute names
-    @att_types = @dataset[1] #creates an array of attribute types
+     #creates an array of attribute names
+    #@att_types = @dataset[1] #creates an array of attribute types
     n=@dataset.size
     @dataset = @dataset[2...n] #creates an 2-dimensional array of a dataset
    
