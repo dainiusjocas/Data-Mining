@@ -3,9 +3,9 @@
 require 'dataset'
 
 dataset = Dataset.new
-dataset.build_dataset "../test/adult.arff"
+dataset.build_dataset "../test/auto_mpg.txt"
 
-dataset.get_attribute(5, 1)
+dataset.get_attribute(2, 1)
 
 
 
