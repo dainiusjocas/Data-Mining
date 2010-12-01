@@ -50,4 +50,24 @@ class Distance
     return @nom_index
   end
 
+  # Method that finds distance between two numeric values
+  #
+  # @param value1
+  # @param value2
+  #
+  def get_distance_between_numeric_values value1, value2
+    return (value1-value2).abs
+  end
+
+  # Method that finds distance between nominal values
+  #
+  # @param value1
+  # @param value2
+  #
+  def get_distance_between_nominal_values value1, value2
+    if value1 == value2
+      return 0
+    end
+    return 1
+  end
 end
