@@ -12,12 +12,12 @@ class Dataset
 
     file = File.new(path, "r")
     while (line = file.gets)
-      line.strip
-      if !line.start_with?("@") && line.length>0
+
+      if !line.start_with?("@") && !line.start_with?("\n")
+        puts line
         @dataset.push(line.split(","))
       end
     end
-    puts @dataset
   end
 
   def get_size
