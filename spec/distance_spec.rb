@@ -32,8 +32,8 @@ describe Distance do
     @distance.get_distance_between_nominal_values('2', '2').should == 0
   end
 #===============================================================================
-  it "distance between numeric values 1 and 5 should be 5" do
-    @distance.get_distance_between_numeric_values(1, 5).should == 5
+  it "distance between numeric values 1 and 5 should be 4" do
+    @distance.get_distance_between_numeric_values(1, 5).should == 4
   end
 
   it "distance between numeric values -2 and 5 should be 7" do
