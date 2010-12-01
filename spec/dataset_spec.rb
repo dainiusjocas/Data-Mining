@@ -10,7 +10,7 @@ describe Dataset do
   end
 
   it "size of dataset should be equal to 2" do
-    @dataset.build_dataset('../test/auto_mpg.txt')
+    @dataset.build_dataset('test/auto_mpg.txt')
     @dataset.get_size.should == 2
   end
 end
