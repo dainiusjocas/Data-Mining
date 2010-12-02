@@ -50,13 +50,18 @@ class Distance
     return @nom_index
   end
 
-  # Method that finds distance between two numeric values
+  # Method that finds distance between two numeric values. Result should be in
+  # range of (0..1]
+  # TODO: what should be if normalization constant is nil?
   #
   # @param value1
   # @param value2
   # @param normalization_constant absolute distance between min and max values between tuples
   #
   def get_distance_between_numeric_values value1, value2, normalization_constant
+    if (nil == value1 || nil == value2)
+      return 1
+    end
     return Float(value1-value2).abs / normalization_constant
   end
 
@@ -66,9 +71,9 @@ class Distance
   # @param value2
   #
   def get_distance_between_nominal_values value1, value2
-    if value1 == value2
-      return 0
+    if (nil == value1 || nil == value2 || value2 != value1)
+      return 1
     end
-    return 1
+    return 0
   end
 end
