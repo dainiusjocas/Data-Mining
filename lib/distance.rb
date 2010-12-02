@@ -50,4 +50,25 @@ class Distance
     return @nom_index
   end
 
+  # Method that finds distance between two numeric values
+  #
+  # @param value1
+  # @param value2
+  # @param normalization_constant absolute distance between min and max values between tuples
+  #
+  def get_distance_between_numeric_values value1, value2, normalization_constant
+    return Float(value1-value2).abs / normalization_constant
+  end
+
+  # Method that finds distance between nominal values
+  #
+  # @param value1
+  # @param value2
+  #
+  def get_distance_between_nominal_values value1, value2
+    if value1 == value2
+      return 0
+    end
+    return 1
+  end
 end
