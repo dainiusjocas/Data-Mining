@@ -23,42 +23,50 @@ class Dataset
 
   def build_dataset path
     file = File.new(path, "r")
-
     i=0
     while (line = file.gets)
        line = line.strip
-       unless line.empty?
-         if 1 >= i
-           if 0 == i
-             @att_names.push(line.split(","))
-             i += 1
-           else
-             @att_types.push(line.split(","))
-             i += 1
-           end
-         @dataset.push(line.split(","))
+       unless line.empty?       
+         if i == 2
+           @dataset.push(line.split(","))
+         elsif 0 == i
+           @att_names = line.split(",")
+           i += 1
+         else
+           @att_types = line.split(",")
+           i += 1
          end
        end
     end
-
-     #creates an array of attribute names
-    #@att_types = @dataset[1] #creates an array of attribute types
-    n=@dataset.size
-    @dataset = @dataset[2...n] #creates an 2-dimensional array of a dataset
-   
   end
 
-  #returns the size_of a dataset or a number of attributes in a data tuple
-  def get_size size_of
-    d_size = case size_of
-    when 'line' then @dataset[0].size
-    when 'dataset' then @dataset.size
-    end
+  #returns the size_of a dataset 
+  def get_dataset_size
+    @dataset.size
   end
 
-  def get_attribute tuple, attribute
-    puts @att_names[attribute]
-    puts @att_types[attribute]
-   # puts @dataset[tuple][attribute]
+  #returns the size of a tuple (number of attributes)
+  def get_tuple_size
+    @dataset[0].size
+  end
+
+  def get_norm_const attribute_name
+    min_value = nil
+    max_value = nil
+    tuple_index = @att_names.index(attribute_name)
+
+    @dataset.each do |item|
+      i = Float item[tuple_index]
+     
+      if  (min_value == nil || min_value > i )
+        min_value = i       
+      end
+
+      if (max_value == nil || max_value < i )
+        max_value = i
+      end
+    end    
+    norm_constant = max_value - min_value
+    return norm_constant
   end
 end

@@ -5,30 +5,9 @@ require 'distance'
 
 dataset = Dataset.new
 dataset.build_dataset "../test/auto_mpg.txt"
+#dataset.get_attribute(2, 1)
 
-dataset.get_attribute(2, 1)
-
-distance = Distance.new
-
-distance.fetch_tuples(0, 1)
-@num_value_index = distance.get_num_index
-@nom_value_index = distance.get_nom_index
-@att_names = distance.dataset_inst.att_names
+dataset.get_norm_const("MPG")
 
 
 
-puts ""
-puts "Numeric value index and name"
-@num_value_index.each do |item|
-  print item 
-  print " "
-  puts @att_names.values_at(item)
-end
-
-puts ""
-puts "Nominal value index and name"
-@nom_value_index.each do |item|
-  print item
-  print " "
-  puts @att_names.values_at(item)
-end

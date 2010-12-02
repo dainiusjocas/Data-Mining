@@ -2,7 +2,7 @@
 # and open the template in the editor.
 
 
-load 'dataset.rb'
+require 'dataset'
 
 describe Dataset do
   before(:each) do
@@ -11,15 +11,16 @@ describe Dataset do
 
   it "size of dataset should be equal to 2" do
     @dataset.build_dataset('test/auto_mpg.txt')
-    @dataset.get_size('dataset').should == 2
+    @dataset.get_dataset_size.should == 4
   end
   it "length of a datatuple should be equal to 9" do
     @dataset.build_dataset('test/auto_mpg.txt')
-    @dataset.get_size('line').should == 9
+    @dataset.get_tuple_size.should == 9
   end
 
-  it "should return a mpg, num, 18 array" do
+
+  it "normalization constant should be equal to 3" do
     @dataset.build_dataset('test/auto_mpg.txt')
-    @dataset.get_attribute(0, 0) == ['mpg', 'num', '18']
+    @dataset.get_norm_const("MPG").should == 3.0
   end
 end
