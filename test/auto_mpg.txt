@@ -1,8 +1,8 @@
 
 MPG,Cylinders,Displacement,Horsepower,Weight,Acceleration,Model year,Origin,Car name
 
-Numeric,Nominal,Numeric,Numeric,Numeric,Nominal,Nominal,Nominal,Nominal
-18,8,307,130,3504,12,70,1,chevrolet chevelle malibu
+Numeric,Nominal,Numeric,Numeric,Numeric,Numeric,Nominal,Nominal,Nominal
+10,7,307,130,3504,12,70,1,chevrolet chevelle malibu
+15,3,350,165,3693,10.5,70,1,buick skylark 320
+25,7,380,165,3693,11.5,70,1,buick skylark 320
 15,3,350,165,3693,11.5,70,1,buick skylark 320
-15,7,350,165,3693,11.5,70,1,buick skylark 320
-15,15,350,165,3693,11.5,70,1,buick skylark 320

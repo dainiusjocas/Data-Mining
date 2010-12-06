@@ -18,8 +18,14 @@ class Dataset
   #the dataset is stored in the 2 dimensional array
   #first dimension is the index of tuples
   #second dimension is the index of attributes
-  #att_names contains the first line of the file, which has to be the attribute names
-  #att_types contains the second line of the file, which has to be the attribute types
+  #
+  #@param path a path to a 'comma seperated value' file containing a dataset
+  #
+  #First line of the dataset should contain attribute names
+  #Second line of the dataset should contain attribute types(numeric or nominal)
+  #
+
+
 
   def build_dataset path
     file = File.new(path, "r")
@@ -30,7 +36,8 @@ class Dataset
          if i == 2
            @dataset.push(line.split(","))
          elsif 0 == i
-           @att_names = line.split(",")
+           line.strip
+           @att_names = line.split(",") 
            i += 1
          else
            @att_types = line.split(",")
@@ -40,7 +47,7 @@ class Dataset
     end
   end
 
-  #returns the size_of a dataset 
+  #returns the size of a loaded dataset
   def get_dataset_size
     @dataset.size
   end
@@ -50,6 +57,11 @@ class Dataset
     @dataset[0].size
   end
 
+# Method that finds the normalization constant for an attribute. Its a
+# distance between maximum and minimum value of that attribute in whole dataset
+#
+# @param attribute name
+#
   def get_norm_const attribute_name
     min_value = nil
     max_value = nil
@@ -70,3 +82,4 @@ class Dataset
     return norm_constant
   end
 end
+

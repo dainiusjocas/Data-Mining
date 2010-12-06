@@ -3,52 +3,11 @@
 require 'dataset'
 
 class Distance
-  attr_accessor :tuple_i, :tuple_j, :nom_index, :num_index, :dataset_inst
 
   def initialize
-    @tuple_i = Array.new
-    @tuple_j = Array.new
-    @nom_index = Array.new
-    @num_index = Array.new
-    @dataset_inst = Array.new
+    
   end
 
-
-  def fetch_tuples (i, j)
-    @dataset_inst = Dataset.new
-    @dataset_inst.build_dataset('../test/auto_mpg.txt')
-    @tuple_i = @dataset_inst.dataset[i]
-    @tuple_j = @dataset_inst.dataset[j]
-  end
-   
-
-  #gets the index of numerical attributes in the dataset
-  def get_num_index
-    idx = 0
-    @dataset_inst.att_types.each do |e|
-      if e=='Numeric'
-        @num_index.push(idx)
-        idx +=1
-      else
-        idx += 1
-      end
-    end
-    return @num_index
-  end
-
-  #gets the index of numerical attributes in the dataset
-  def get_nom_index
-    idx = 0
-    @dataset_inst.att_types.each do |e|
-      if e=='Nominal'
-        @nom_index.push(idx)
-        idx +=1
-      else
-        idx += 1
-      end
-    end
-    return @nom_index
-  end
 
   # Method that finds distance between two numeric values. Result should be in
   # range of (0..1]
@@ -62,7 +21,8 @@ class Distance
     if (nil == value1 || nil == value2)
       return 1
     end
-    return Float(value1-value2).abs / normalization_constant
+     distance = Float(value1.to_f-value2.to_f).abs / normalization_constant
+    return distance
   end
 
   # Method that finds distance between nominal values
@@ -75,5 +35,57 @@ class Distance
       return 1
     end
     return 0
+  end
+
+
+
+  # Method that finds distance between two tuples.
+  # Returns a value between 0 and 1, that specifies the distance
+  # between two given tuples.
+  #
+  # @param tuple_i
+  # @param tuple_j
+  # @param dataset
+   def get_distance_between_tuples tuple_i, tuple_j, dataset
+     idx = 0
+     dist = Array.new
+     dist_f = Array.new
+     dist_sum = 0
+     tuple_size = dataset.get_tuple_size
+     divide_by = tuple_size
+     
+
+
+     (0..tuple_size).each do |i|
+       if dataset.att_types.values_at(idx)[0] == "Nominal"
+         if tuple_i.values_at(idx)[0] == "0" || tuple_j.values_at(idx)[0] == "0"
+           dist.push(0)
+           divide_by -= 1
+         else
+           dist.push(get_distance_between_nominal_values(tuple_i.values_at(idx)[0], tuple_j.values_at(idx)[0]))
+         end
+       end
+
+       if dataset.att_types.values_at(idx)[0] == "Numeric"
+         if tuple_i.values_at(idx)[0] == "0" || tuple_j.values_at(idx)[0] == "0"
+           dist.push(0)
+           divide_by -= 1
+         else
+           dist.push(get_distance_between_numeric_values(tuple_i.values_at(idx)[0], tuple_j.values_at(idx)[0], dataset.get_norm_const(dataset.att_names.values_at(idx)[0])))
+         end
+       end
+       idx += 1
+     end
+
+     dist.each do |item|
+       dist_f.push(item.to_f)
+     end
+     dist_f.each do |d|
+       unless d == 0.0
+        dist_sum += d
+       end
+     end
+     puts dist
+     return dist_sum/divide_by
   end
 end

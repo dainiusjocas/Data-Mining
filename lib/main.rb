@@ -4,10 +4,14 @@ require 'distance'
 
 
 dataset = Dataset.new
-dataset.build_dataset "../test/auto_mpg.txt"
-#dataset.get_attribute(2, 1)
+dataset.build_dataset "../test/distance_test.txt"
+dataset_size = dataset.get_dataset_size
 
-dataset.get_norm_const("MPG")
+distance = Distance.new
+
+puts distance.get_distance_between_tuples(dataset.dataset[0], dataset.dataset[2], dataset)
+
+
 
 
 

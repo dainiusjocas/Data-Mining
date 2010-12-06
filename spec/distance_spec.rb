@@ -2,10 +2,13 @@
 # and open the template in the editor.
 
 require 'distance'
+require 'dataset'
 
 describe Distance do
   before(:each) do
     @distance = Distance.new
+    @dataset = Dataset.new
+    @dataset.build_dataset '/Users/S/NetBeansProjects/Data_mining/test/distance_test.txt'
   end
 
 #====Distance between nominal values============================================
@@ -112,5 +115,11 @@ describe Distance do
   it "distance between numeric values nil and nil should be 1 when normalization constant is 10" do
     @distance.get_distance_between_numeric_values(nil, nil, 10).should == 1
   end
+
+  #====Distance between tuples with mixed values=====
+  it "distance between tuples in distance_test.txt at index 0 and 2 should be 1 " do
+    @distance.get_distance_between_tuples(@dataset.dataset[0], @dataset.dataset[2], @dataset).should == 1
+  end
+  
 end
 
