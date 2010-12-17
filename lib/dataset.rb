@@ -170,11 +170,11 @@ class Dataset
   #   distance measurement. if you pass 2 euclidean distance is to be computed
   #   and so on.
   #
-  def get_distance_between_numeric_values value1, value2, normalization_constant, distance_level = 1
+  def get_distance_between_numeric_values value1, value2, normalization_constant
     if (nil == value1 || nil == value2)
       return 1
     end
-     distance = Float(((value1.to_f - value2.to_f)**distance_level)**(1.0 / distance_level)).abs / normalization_constant
+     distance = Float(value1.to_f - value2.to_f).abs / normalization_constant
     return distance
   end
 
@@ -196,17 +196,20 @@ class Dataset
   # @param tuple1
   # @param tuple2
   # @return distance_between_tuples float value
-  # TODO: what about missing values?
-  def sum_distance_between_tuples tuple1, tuple2
+  # TODO: what about minkovski distance division by size of tuple? I think we
+  # don't need to divide, because we said that our dataset don't have missing
+  # values
+  #
+  def get_minkovski_distance_between_tuples tuple1, tuple2, distance_level = 1
     distance_between_tuples = 0
     for index_of_attribute_of_tuple in (0..get_tuple_size - 1)
       if (@name_of_nominal_type == get_type_of_attribute_by_index_of_attribute_of_tuple(index_of_attribute_of_tuple))
         distance_between_tuples += get_distance_between_nominal_values tuple1[index_of_attribute_of_tuple], tuple2[index_of_attribute_of_tuple]
       else
-        distance_between_tuples += get_distance_between_numeric_values tuple1[index_of_attribute_of_tuple], tuple2[index_of_attribute_of_tuple], @normalization_constants[index_of_attribute_of_tuple]
+        distance_between_tuples += (get_distance_between_numeric_values tuple1[index_of_attribute_of_tuple], tuple2[index_of_attribute_of_tuple], @normalization_constants[index_of_attribute_of_tuple]) ** distance_level
       end
     end
-    return distance_between_tuples / get_tuple_size
+    return (distance_between_tuples ** (1 / distance_level)) / get_tuple_size
   end
 
   # Method that finds distance between two tuples.
