@@ -112,9 +112,16 @@ describe Dataset do
   end
 
   #====Distance between tuples with mixed values=====
-  it "distance between tuples in distance_test.txt at index 0 and 2 should be 1 " do
-    @dataset.get_distance_between_tuples(@dataset.dataset[0], @dataset.dataset[2]).should == 1
+  it "distance between tuples in distance_test.txt at index 0 and 2 should be 1" do
+    @dataset.sum_distance_between_tuples(@dataset.dataset[0], @dataset.dataset[2]).should == 1
   end
-  
+
+  it "distance between tuples in distance_test.txt at index 0 and 1 should be 0.4" do
+    @dataset.sum_distance_between_tuples(@dataset.dataset[0], @dataset.dataset[1]).should.eql?(0.4)
+  end
+
+  it "distance between tuples in distance_test.txt at index 0 and 0 should be 0" do
+    @dataset.sum_distance_between_tuples(@dataset.dataset[0], @dataset.dataset[0]).should == 0
+  end
 end
 
