@@ -4,17 +4,19 @@
 #datafile must be a comma separated values file
 
 class Dataset
-  attr_accessor :dataset, :att_names,
+  attr_accessor :dataset,
+    :att_names,
     :normalization_constants,      # array of normalization constants of dataset
-    :names_and_types_of_attributes # hash where key is name and value is type
+    :names_and_types_of_attributes, # hash where key is name and value is type
+    :name_of_numeric_type,
+    :name_of_nominal_type
 
-  #constructor of the class, initializing the class variables
   def initialize
     @dataset = Array.new
     @att_names = Array.new
     @normalization_constants = Array.new
     @names_and_types_of_attributes = Hash.new
-    #some constants
+    #some almost static variables
     @default_normalization_constant = -1
     @name_of_numeric_type = "Numeric"
     @name_of_nominal_type = "Nominal"
