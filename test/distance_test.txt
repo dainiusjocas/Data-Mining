@@ -1,5 +1,0 @@
-First,Second,Third
-Numeric,Numeric,Nominal
-1,4,Blue
-1,5,Green
-8,9,Red

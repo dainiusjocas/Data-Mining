@@ -1,3 +1,0 @@
-First,Second
-Nominal,Numeric
-Blue,12
