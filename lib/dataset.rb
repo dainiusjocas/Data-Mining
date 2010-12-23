@@ -136,31 +136,6 @@ class Dataset
     @dataset[0].size
   end
 
-# Method that finds the normalization constant for an attribute. Its a
-# distance between maximum and minimum value of that attribute in whole dataset
-#
-# @param attribute name
-#
-  def get_norm_const attribute_name
-    min_value = nil
-    max_value = nil
-    attribute_index = @att_names.index(attribute_name)
-
-    @dataset.each do |tuple|
-      i = Float tuple[attribute_index]
-     
-      if  (min_value == nil || min_value > i )
-        min_value = i       
-      end
-
-      if (max_value == nil || max_value < i )
-        max_value = i
-      end
-    end    
-    norm_constant = max_value - min_value
-    return norm_constant
-  end
-
   # Method that finds distance between two numeric values. Result should be in
   # range of (0..1].
   # TODO: what should be if normalization constant is nil?
@@ -211,55 +186,10 @@ class Dataset
         distance_between_tuples += (get_distance_between_numeric_values tuple1[index_of_attribute_of_tuple], tuple2[index_of_attribute_of_tuple], @normalization_constants[index_of_attribute_of_tuple]) ** distance_level
       end
     end
+    if distance_level <= 0
+      return (distance_between_tuples ** (1 / 1)) / get_tuple_size
+    end
     return (distance_between_tuples ** (1 / distance_level)) / get_tuple_size
-  end
-
-  # Method that finds distance between two tuples.
-  # Returns a value between 0 and 1, that specifies the distance
-  # between two given tuples.
-  #
-  # @param tuple_i
-  # @param tuple_j
-  #
-   def get_distance_between_tuples tuple_i, tuple_j
-     index = 0
-     dist = Array.new
-     dist_f = Array.new
-     dist_sum = 0
-     tuple_size = self.get_tuple_size
-     divide_by = tuple_size
-
-     (0..tuple_size).each do |i|
-       if @att_types.values_at(index)[0] == @name_of_nominal_type
-         if tuple_i.values_at(index)[0] == "0" || tuple_j.values_at(index)[0] == "0"
-           dist.push(0)
-           divide_by -= 1
-         else
-           dist.push(get_distance_between_nominal_values(tuple_i.values_at(index)[0], tuple_j.values_at(index)[0]))
-         end
-       end
-
-       if self.att_types.values_at(index)[0] == @name_of_numeric_type
-         if tuple_i.values_at(index)[0] == "0" || tuple_j.values_at(index)[0] == "0"
-           dist.push(0)
-           divide_by -= 1
-         else
-           dist.push(get_distance_between_numeric_values(tuple_i.values_at(index)[0], tuple_j.values_at(index)[0], self.get_norm_const(dataset.att_names.values_at(index)[0])))
-         end
-       end
-       index += 1
-     end
-
-     dist.each do |item|
-       dist_f.push(item.to_f)
-     end
-     dist_f.each do |d|
-       unless d == 0.0
-        dist_sum += d
-       end
-     end
-     puts dist # TODO delete this line
-     return dist_sum/divide_by
   end
 end
 

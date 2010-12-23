@@ -3,6 +3,8 @@ QUESTIONS:
 1. Maybe we shouldn't use strings with capital letters?
 2. We need array of normalization constants?
 3. Do we have any missing values? (if we dont't have then our computations is much easier)
+4. ruby main [name_of_algorithm] [dataset_file], [[distance_level], [number_of_clusters]]
+5. to write clusterized dataset to file.
 
 DECISIONS:
 1. Types of attributes should be accessible only by their name.

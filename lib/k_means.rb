@@ -5,7 +5,7 @@
 # TODO
 # 1. What to do if k is less than 1
 # 2. What is the treshold to stop doing clustering
-# 3. How to get type of attribute
+# 3. Get array about mean values of cluster
 
 require 'dataset'
 
@@ -72,15 +72,16 @@ class KMeans
   # @param k how many clusters we want to do - default value 2
   # @param treshold_of_min_changes - end condition - default value 10
   #
-  def clusterize k = 2
+  def clusterize k = 2, distance_level = 1
     return nil if k > @working_dataset.get_dataset_size
     build_array_of_k_means k
     flag = 0
     begin
       recompute_mean_values_within_clusters k if flag != 0
-      number_of_changes = recluster_dataset
+      number_of_changes = recluster_dataset distance_level
       flag = 1
-    end while 1 < number_of_changes
+      puts number_of_changes
+    end while 0 < number_of_changes
     return @clustered_dataset
   end
 
@@ -99,7 +100,7 @@ class KMeans
       new_cluster_value = nil
       i = 0  # for saving cluster number
       for cluster_index in 0..@array_of_k_means.size - 1
-        distance = @working_dataset.get_minkovski_distance_between_tuples tuple, @array_of_k_means[cluster_index] #, distance_level
+        distance = @working_dataset.get_minkovski_distance_between_tuples tuple, @array_of_k_means[cluster_index], distance_level
         if (minimal_distance == nil || minimal_distance > distance)
           minimal_distance = distance
           new_cluster_value = cluster_index
