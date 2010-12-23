@@ -74,7 +74,7 @@ class Dataset
             max_value = tuple[index_of_attribute_of_tuple]
           end
         end
-        @normalization_constants.push (Float(min_value) - Float(max_value)).abs
+        @normalization_constants.push((Float(min_value) - Float(max_value)).abs)
       end
     end
   end
@@ -187,9 +187,9 @@ class Dataset
       end
     end
     if distance_level <= 0
-      return (distance_between_tuples ** (1 / 1)) / get_tuple_size
+      return (distance_between_tuples) / get_tuple_size
     end
-    return (distance_between_tuples ** (1 / distance_level)) / get_tuple_size
+    return ((distance_between_tuples ** (1.0 / distance_level)) / get_tuple_size)
   end
 end
 

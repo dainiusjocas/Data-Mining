@@ -123,5 +123,30 @@ describe Dataset do
   it "distance between tuples in distance_test.txt at index 0 and 0 should be 0" do
     @dataset.get_minkovski_distance_between_tuples(@dataset.dataset[0], @dataset.dataset[0]).should == 0
   end
+
+  #===Euclidean distance
+  it "euclidean distance between tuples [0, 0] and [3,4] should be equal to (2.0)**(1.0/2)/2" do
+    dataset = Dataset.new
+    dataset.build_dataset "test/test2d.txt"
+    dataset.get_minkovski_distance_between_tuples(dataset.dataset[0], dataset.dataset[1], 2).should == (2.0)**(1.0/2)/2
+  end
+
+  it "euclidean distance between tuples [0, 0] and [1,1] should be equal to (((1.0/3)**2 + (1.0/4)**2))**(1.0/2)/2" do
+    dataset = Dataset.new
+    dataset.build_dataset "test/test2d.txt"
+    dataset.get_minkovski_distance_between_tuples(dataset.dataset[0], dataset.dataset[2], 2).should == (((1.0/3)**2 + (1.0/4)**2))**(1.0/2)/2
+  end
+  #===3rd level distance
+  it "3rd level distance between tuples [0, 0] and [3,4] should be equal to (2.0)**(1.0/3)/2" do
+    dataset = Dataset.new
+    dataset.build_dataset "test/test2d.txt"
+    dataset.get_minkovski_distance_between_tuples(dataset.dataset[0], dataset.dataset[1], 3).should == (2.0)**(1.0/3)/2
+  end
+
+  it "3rd level distance between tuples [0, 0] and [1,1] should be equal to 5" do
+    dataset = Dataset.new
+    dataset.build_dataset "test/test2d.txt"
+    dataset.get_minkovski_distance_between_tuples(dataset.dataset[0], dataset.dataset[2], 3).should == (((1.0/3)**3 + (1.0/4)**3))**(1.0/3)/2
+  end
 end
 

@@ -1,0 +1,5 @@
+x,y,z,a,b,c
+Numeric,Numeric,Numeric,Nominal,Nominal,Nominal
+0,0,0,a,b,c
+10,10,10,a,b,c
+10,12,12,q,w,e

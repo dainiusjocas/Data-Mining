@@ -75,12 +75,11 @@ class KMeans
   def clusterize k = 2, distance_level = 1
     return nil if k > @working_dataset.get_dataset_size
     build_array_of_k_means k
-    flag = 0
+    clustered = false # identifies if dataset is preclusterized. if flag == 0 then there are no mean values
     begin
-      recompute_mean_values_within_clusters k if flag != 0
+      recompute_mean_values_within_clusters k if clustered == true
       number_of_changes = recluster_dataset distance_level
-      flag = 1
-      puts number_of_changes
+      clustered = true
     end while 0 < number_of_changes
     return @clustered_dataset
   end
@@ -202,5 +201,28 @@ class KMeans
       end
     end
     return zero_tuple
+  end
+
+  # This method outputs clusterized array to file
+  def cluster_and_write_clustered_dataset_to_file file_name, number_of_clusters, distance_level
+    result = clusterize number_of_clusters, distance_level
+    File.open(file_name, 'w') {|f|
+
+      attribute_types = ""
+      attribute_names = ""
+      @working_dataset.names_and_types_of_attributes.each {|attribute_name, attribute_type|
+        attribute_names << "#{attribute_name},"
+        attribute_types << "#{attribute_type},"
+      }
+      f.puts attribute_names.chop
+      f.puts attribute_types.chop
+
+      temp_string = ""
+      result.each { |key,value|
+        key.each{ |attribute| temp_string << "#{attribute}," }
+        f.puts("#{temp_string}#{value}")
+        temp_string = ""
+      }
+    }
   end
 end
