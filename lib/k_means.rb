@@ -208,7 +208,9 @@ class KMeans
 
   # This method outputs clusterized array to file
   def cluster_and_write_clustered_dataset_to_file file_name, number_of_clusters, distance_level
+    start_time = Time.new
     result = clusterize number_of_clusters, distance_level
+    duration = Time.new - start_time
     File.open(file_name, 'w') {|f|
 
       attribute_types = ""
@@ -221,11 +223,53 @@ class KMeans
       f.puts attribute_types.chop
 
       temp_string = ""
-      result.each { |key,value|
-        key.each{ |attribute| temp_string << "#{attribute}," }
-        f.puts("#{temp_string}#{value}")
+      ordered_result = result.sort{|a,b| a[1]<=>b[1]}
+      ordered_result.each { |item|
+        item[0].each { |attribute|
+          temp_string << attribute << ','
+        }
+        f.puts "#{temp_string}#{item[1]}"
         temp_string = ""
       }
+      
+      result_hash = Hash.new
+      ordered_result.each {|rez|
+        if result_hash.has_key?(rez[1])
+          result_hash[rez[1]] = result_hash[rez[1]] +1
+        else
+          result_hash[rez[1]] = 1
+        end
+      }
+
+      f.puts
+      result_hash.each { |key, value| f.puts "Cluster number #{key} has #{value} elements"}
+      f.puts
+
+      i = 0
+      @array_of_k_means.each {|item|
+        item.each { |mean|
+          
+          if mean.class == (1.0).class
+            temp_string << "%0.3f " %mean
+          else
+            temp_string << "#{mean} "
+          end
+          
+        }
+        f.puts "Mean values of cluster nr #{i} is #{temp_string}"
+        i += 1
+        temp_string = ""
+      }
+
+      f.puts
+      f.puts "Duration of execution of algorithm was #{duration} seconds"
+
+
+#      result.each { |key,value|
+#        key.each{ |attribute| temp_string << "#{attribute}," }
+#        f.puts("#{temp_string}#{value}")
+#        temp_string = ""
+#      }
     }
   end
 end

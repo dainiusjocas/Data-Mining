@@ -3,7 +3,7 @@ require 'lib/k_means'
 
 #4. ruby main [dataset_file], [output_file], [name_of_algorithm], [[number_of_clusters], [distance_level]]
 dataset = Dataset.new
-dataset.build_dataset "test/adult.arff"#ARGV[0]
+dataset.build_dataset "test/auto-mpg-modified.csv"#ARGV[0]
 output_file = ARGV[1]
 ARGV.each { |arg| puts arg }
 if ("k_means" == ARGV[2])

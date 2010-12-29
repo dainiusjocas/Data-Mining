@@ -1,4 +1,4 @@
-require 'dataset'
+require 'lib/dataset'
 
 describe Dataset do
   before(:each) do
