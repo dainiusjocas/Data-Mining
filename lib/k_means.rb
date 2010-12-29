@@ -7,7 +7,7 @@
 # 2. What is the treshold to stop doing clustering
 # 3. Get array about mean values of cluster
 
-require 'dataset'
+require 'lib/dataset'
 
 class KMeans
 
@@ -74,12 +74,15 @@ class KMeans
   #
   def clusterize k = 2, distance_level = 1
     return nil if k > @working_dataset.get_dataset_size
+    iteration = 0
     build_array_of_k_means k
     clustered = false # identifies if dataset is preclusterized. if flag == 0 then there are no mean values
     begin
       recompute_mean_values_within_clusters k if clustered == true
       number_of_changes = recluster_dataset distance_level
       clustered = true
+      puts "#{iteration} #{number_of_changes}"
+      iteration += 1
     end while 0 < number_of_changes
     return @clustered_dataset
   end
