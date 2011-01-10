@@ -94,7 +94,7 @@ class KMeans
   # TODO figure out how to measure distance between two tuples in this
   # circumstances
   #
-  def recluster_dataset distance_level = 1
+  def recluster_dataset distance_level = 2
     changes_made_during_clustering = 0
     
     @clustered_dataset.each do |tuple, cluster|

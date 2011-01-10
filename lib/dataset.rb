@@ -177,7 +177,7 @@ class Dataset
   # don't need to divide, because we said that our dataset don't have missing
   # values
   #
-  def get_minkovski_distance_between_tuples tuple1, tuple2, distance_level = 1
+  def get_minkovski_distance_between_tuples tuple1, tuple2, distance_level = 2
     distance_between_tuples = 0
     for index_of_attribute_of_tuple in (0..get_tuple_size - 1)
       if (@name_of_nominal_type == get_type_of_attribute_by_index_of_attribute_of_tuple(index_of_attribute_of_tuple))
