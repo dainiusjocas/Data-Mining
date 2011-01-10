@@ -172,8 +172,12 @@ class KMeans
   # @return array (or tuple) of mean values within cluster
   #
   def get_complete_mean_tuple raw_mean_tuple, size_of_cluster
-    complete_mean_tuple = get_zero_tuple
-    if 0 < size_of_cluster
+    if size_of_cluster > 1
+      complete_mean_tuple = get_zero_tuple 
+    else
+      complete_mean_tumple = raw_mean_tuple
+    end
+    if 1 < size_of_cluster
       for attribute_index in 0..@working_dataset.dataset[0].size - 1
         #if @workind_dataset.name_of_nominal_type == @working_dataset.get_type_of_attribute_by_index_of_attribute_of_tuple(attribute_index)
         if "Nominal" == @working_dataset.get_type_of_attribute_by_index_of_attribute_of_tuple(attribute_index)
@@ -208,6 +212,12 @@ class KMeans
 
   # This method outputs clusterized array to file
   def cluster_and_write_clustered_dataset_to_file file_name, number_of_clusters, distance_level
+    distance_level = 2 if nil.class == distance_level.class or 1 > distance_level
+    number_of_clusters = 2 if nil == number_of_clusters or 1 > number_of_clusters.to_i
+    if "string".class == number_of_clusters.class
+      number_of_clusters = 2 if  1 > number_of_clusters.to_i
+      number_of_clusters = number_of_clusters.to_i
+    end
     start_time = Time.new
     result = clusterize number_of_clusters, distance_level
     duration = Time.new - start_time
