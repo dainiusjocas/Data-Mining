@@ -212,7 +212,8 @@ class KMeans
 
   # This method outputs clusterized array to file
   def cluster_and_write_clustered_dataset_to_file file_name, number_of_clusters, distance_level
-    distance_level = 2 if nil.class == distance_level.class or 1 > distance_level
+    distance_level = 2 if nil.class == distance_level.class or 1 > distance_level.to_i
+    distance_level = distance_level.to_i if "string".class == distance_level.class
     number_of_clusters = 2 if nil == number_of_clusters or 1 > number_of_clusters.to_i
     if "string".class == number_of_clusters.class
       number_of_clusters = 2 if  1 > number_of_clusters.to_i
