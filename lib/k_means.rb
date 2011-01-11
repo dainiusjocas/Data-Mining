@@ -78,10 +78,11 @@ class KMeans
     build_array_of_k_means k
     clustered = false # identifies if dataset is preclusterized. if flag == 0 then there are no mean values
     begin
-      recompute_mean_values_within_clusters k if clustered == true
+      if clustered == true
+        recompute_mean_values_within_clusters k 
+      end
       number_of_changes = recluster_dataset distance_level
       clustered = true
-      puts "#{iteration} #{number_of_changes}"
       iteration += 1
     end while 0 < number_of_changes
     return @clustered_dataset
@@ -156,7 +157,7 @@ class KMeans
         end
       end
     end
-    
+
     mean_tuple = get_complete_mean_tuple mean_tuple, cluster.size
     return mean_tuple
   end
@@ -172,12 +173,8 @@ class KMeans
   # @return array (or tuple) of mean values within cluster
   #
   def get_complete_mean_tuple raw_mean_tuple, size_of_cluster
-    if size_of_cluster > 1
-      complete_mean_tuple = get_zero_tuple 
-    else
-      complete_mean_tumple = raw_mean_tuple
-    end
-    if 1 < size_of_cluster
+    complete_mean_tuple = get_zero_tuple
+    if 0 < size_of_cluster
       for attribute_index in 0..@working_dataset.dataset[0].size - 1
         #if @workind_dataset.name_of_nominal_type == @working_dataset.get_type_of_attribute_by_index_of_attribute_of_tuple(attribute_index)
         if "Nominal" == @working_dataset.get_type_of_attribute_by_index_of_attribute_of_tuple(attribute_index)

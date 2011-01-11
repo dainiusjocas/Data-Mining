@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'lib/dataset'
 require 'lib/k_means'
 require 'lib/db_scan'
@@ -24,5 +26,3 @@ elsif ("db_scan"== ARGV[2])
   time_after = Time.now
   puts "Execution time is #{time_after-time_before} seconds"
 end
-
-puts "end of the program"
